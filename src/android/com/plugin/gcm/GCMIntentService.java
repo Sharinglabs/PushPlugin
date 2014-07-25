@@ -87,6 +87,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Intent notificationIntent = new Intent(this, PushHandlerActivity.class);
 		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		notificationIntent.putExtra("pushBundle", extras);
+		NotificationCompat.Builder mBuilder;
 
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
@@ -98,21 +99,45 @@ public class GCMIntentService extends GCMBaseIntentService {
 			} catch (NumberFormatException e) {}
 		}
 		
-		NotificationCompat.Builder mBuilder =
-			new NotificationCompat.Builder(context)
-				.setDefaults(defaults)
-				.setSmallIcon(context.getApplicationInfo().icon)
-				.setWhen(System.currentTimeMillis())
-				.setContentTitle(extras.getString("title"))
-				.setTicker(extras.getString("title"))
-				.setContentIntent(contentIntent)
-				.setAutoCancel(true);
-
-		String message = extras.getString("message");
-		if (message != null) {
-			mBuilder.setContentText(message);
-		} else {
-			mBuilder.setContentText("<missing message content>");
+		boolean normalNotif = Boolean.parseBoolean(extras.getString("normalMode"));
+		
+		if(normalNotif) {
+			mBuilder =
+				new NotificationCompat.Builder(context)
+					.setDefaults(defaults)
+					.setSmallIcon(context.getApplicationInfo().icon)
+					.setWhen(System.currentTimeMillis())
+					.setContentTitle(extras.getString("title"))
+					.setTicker(extras.getString("title"))
+					.setContentIntent(contentIntent)
+					.setAutoCancel(true);
+			
+			String message = extras.getString("message");
+			if (message != null) {
+				mBuilder.setContentText(message);
+			} else {
+				mBuilder.setContentText("<missing message content>");
+			}
+	
+			if (extras.getString("bigview") != null) {
+				 boolean bigview = Boolean.parseBoolean(extras.getString("bigview"));
+				 if (bigview) {
+					 mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
+				 }
+	  		}
+		}
+		else {
+			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+			remoteViews.setImageViewResource(R.id.notifImage, context.getApplicationInfo().icon);
+			remoteViews.setTextViewText(R.id.notifText, extras.getString("message"));
+			remoteViews.setOnClickPendingIntent(R.id.notificationLayout, contentIntent);
+			
+			mBuilder = new NotificationCompat.Builder(context);
+			mBuilder.setSmallIcon(context.getApplicationInfo().icon);
+			mBuilder.setContentTitle(extras.getString("title"));
+			mBuilder.setWhen(System.currentTimeMillis());
+			mBuilder.setContent(remoteViews);
+			mBuilder.setContentIntent(contentIntent);
 		}
 
 		String msgcnt = extras.getString("msgcnt");
