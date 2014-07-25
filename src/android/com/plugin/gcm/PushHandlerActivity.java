@@ -1,4 +1,4 @@
-package com.plugin.gcm;
+package com.sharinglabs.cordova.plugin.gcm;
 
 import android.app.Activity;
 import android.app.NotificationManager;
