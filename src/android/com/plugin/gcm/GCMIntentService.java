@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
+import com.angetkoutchi.cinepad.R;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
