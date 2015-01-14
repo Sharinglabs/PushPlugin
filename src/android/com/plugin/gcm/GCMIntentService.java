@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
+import com.angetkoutchi.cinepad.R;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
@@ -128,10 +129,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 	  		}
 		}
 		else {
-			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), android.R.layout.widget);
-			remoteViews.setImageViewResource(android.R.id.notifImage, context.getApplicationInfo().icon);
-			remoteViews.setTextViewText(android.R.id.notifText, extras.getString("message"));
-			remoteViews.setOnClickPendingIntent(android.R.id.notificationLayout, contentIntent);
+			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+			remoteViews.setImageViewResource(R.id.notifImage, context.getApplicationInfo().icon);
+			remoteViews.setTextViewText(R.id.notifText, extras.getString("message"));
+			remoteViews.setOnClickPendingIntent(R.id.notificationLayout, contentIntent);
 			
 			mBuilder = new NotificationCompat.Builder(context);
 			mBuilder.setSmallIcon(context.getApplicationInfo().icon);
