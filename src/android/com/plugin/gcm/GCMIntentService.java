@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
-import com.sharinglabs.cordova.plugin.PushPlugin.R;
+import com.sharinglabs.cordova.plugin.gcm.R;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
