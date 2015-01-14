@@ -128,10 +128,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 	  		}
 		}
 		else {
-			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
-			remoteViews.setImageViewResource(R.id.notifImage, context.getApplicationInfo().icon);
-			remoteViews.setTextViewText(R.id.notifText, extras.getString("message"));
-			remoteViews.setOnClickPendingIntent(R.id.notificationLayout, contentIntent);
+			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), android.R.layout.widget);
+			remoteViews.setImageViewResource(android.R.id.notifImage, context.getApplicationInfo().icon);
+			remoteViews.setTextViewText(android.R.id.notifText, extras.getString("message"));
+			remoteViews.setOnClickPendingIntent(android.R.id.notificationLayout, contentIntent);
 			
 			mBuilder = new NotificationCompat.Builder(context);
 			mBuilder.setSmallIcon(context.getApplicationInfo().icon);
