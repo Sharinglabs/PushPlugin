@@ -5,7 +5,8 @@
    android:layout_width="fill_parent"  
    android:layout_height="fill_parent"  
    android:gravity="left"  
-   android:orientation="horizontal" >  
+   android:orientation="horizontal"
+   android:background="#000000">
    <ImageView  
      android:id="@+id/notifImage"  
      android:layout_width="wrap_content"  
