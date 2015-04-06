@@ -2,7 +2,7 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:amazon="http://schemas.android.com/apk/lib/com.amazon.device.ads"
-    id="com.sharinglabs.cordova.plugin.PushPlugin.WiizbabyDev"
+    id="com.sharinglabs.cordova.plugin.PushPlugin.WiizbabyDevAU"
     version="2.3.3">
 
   <name>PushPlugin</name>
