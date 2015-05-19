@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
+import android.widget.RemoteViews;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.wiizbaby.appdev.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,7 +107,12 @@ public class CordovaGCMBroadcastReceiver extends WakefulBroadcastReceiver {
 			}
 		}
 
-		NotificationCompat.Builder mBuilder =
+		NotificationCompat.Builder mBuilder;
+
+		boolean normalNotif = Boolean.parseBoolean(extras.getString("normalMode"));
+		
+		if(normalNotif) {
+			mBuilder =
 				new NotificationCompat.Builder(context)
 						.setDefaults(defaults)
 						.setSmallIcon(getSmallIcon(context, extras))
@@ -116,11 +123,32 @@ public class CordovaGCMBroadcastReceiver extends WakefulBroadcastReceiver {
             .setColor(getColor(extras))
 						.setAutoCancel(true);
 
-		String message = extras.getString("message");
-		if (message != null) {
-			mBuilder.setContentText(message);
-		} else {
-			mBuilder.setContentText("<missing message content>");
+			String message = extras.getString("message");
+			if (message != null) {
+				mBuilder.setContentText(message);
+			} else {
+				mBuilder.setContentText("<missing message content>");
+			}
+
+			if (extras.getString("bigview") != null) {
+				 boolean bigview = Boolean.parseBoolean(extras.getString("bigview"));
+				 if (bigview) {
+					 mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
+				 }
+	  		}
+		}
+		else {
+			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+			remoteViews.setImageViewResource(R.id.notifImage, context.getApplicationInfo().icon);
+			remoteViews.setTextViewText(R.id.notifText, extras.getString("message"));
+			remoteViews.setOnClickPendingIntent(R.id.notificationLayout, contentIntent);
+			
+			mBuilder = new NotificationCompat.Builder(context);
+			mBuilder.setSmallIcon(context.getApplicationInfo().icon);
+			mBuilder.setContentTitle(extras.getString("title"));
+			mBuilder.setWhen(System.currentTimeMillis());
+			mBuilder.setContent(remoteViews);
+			mBuilder.setContentIntent(contentIntent);
 		}
 
 		String msgcnt = extras.getString("msgcnt");
