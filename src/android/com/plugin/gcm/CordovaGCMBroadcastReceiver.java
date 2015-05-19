@@ -14,7 +14,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 import android.widget.RemoteViews;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.wiizbaby.appau.R;
+import com.wiizbaby.appdevau.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
