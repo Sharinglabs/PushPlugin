@@ -143,12 +143,15 @@ public class CordovaGCMBroadcastReceiver extends WakefulBroadcastReceiver {
 			remoteViews.setTextViewText(R.id.notifText, extras.getString("message"));
 			remoteViews.setOnClickPendingIntent(R.id.notificationLayout, contentIntent);
 			
-			mBuilder = new NotificationCompat.Builder(context);
-			mBuilder.setSmallIcon(context.getApplicationInfo().icon);
-			mBuilder.setContentTitle(extras.getString("title"));
-			mBuilder.setWhen(System.currentTimeMillis());
-			mBuilder.setContent(remoteViews);
-			mBuilder.setContentIntent(contentIntent);
+			mBuilder = new NotificationCompat.Builder(context)
+				.setDefaults(defaults)
+				.setSmallIcon(context.getApplicationInfo().icon)
+				.setWhen(System.currentTimeMillis())
+				.setContentTitle(extras.getString("title"))
+				.setContent(remoteViews)
+				.setContentIntent(contentIntent)
+				.setColor(getColor(extras))
+				.setAutoCancel(true);
 		}
 
 		String msgcnt = extras.getString("msgcnt");
