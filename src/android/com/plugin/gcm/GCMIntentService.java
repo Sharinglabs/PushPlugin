@@ -17,6 +17,8 @@ import com.wiizbaby.appdev.R;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
+import java.util.Random;
+
 @SuppressLint("NewApi")
 public class GCMIntentService extends GCMBaseIntentService {
 
