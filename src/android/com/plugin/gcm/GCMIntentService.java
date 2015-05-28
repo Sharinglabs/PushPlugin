@@ -102,17 +102,18 @@ public class GCMIntentService extends GCMBaseIntentService {
 		}
 		
 		boolean normalNotif = Boolean.parseBoolean(extras.getString("normalMode"));
+
+		mBuilder =
+			new NotificationCompat.Builder(context)
+				.setDefaults(defaults)
+				.setSmallIcon(context.getApplicationInfo().icon)
+				.setWhen(System.currentTimeMillis())
+				.setContentTitle(extras.getString("title"))
+				.setTicker(extras.getString("title"))
+				.setContentIntent(contentIntent)
+				.setAutoCancel(true);
 		
 		if(normalNotif) {
-			mBuilder =
-				new NotificationCompat.Builder(context)
-					.setDefaults(defaults)
-					.setSmallIcon(context.getApplicationInfo().icon)
-					.setWhen(System.currentTimeMillis())
-					.setContentTitle(extras.getString("title"))
-					.setTicker(extras.getString("title"))
-					.setContentIntent(contentIntent)
-					.setAutoCancel(true);
 			
 			String message = extras.getString("message");
 			if (message != null) {
@@ -134,12 +135,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			remoteViews.setTextViewText(R.id.notifText, extras.getString("message"));
 			remoteViews.setOnClickPendingIntent(R.id.notificationLayout, contentIntent);
 			
-			mBuilder = new NotificationCompat.Builder(context);
-			mBuilder.setSmallIcon(context.getApplicationInfo().icon);
-			mBuilder.setContentTitle(extras.getString("title"));
-			mBuilder.setWhen(System.currentTimeMillis());
 			mBuilder.setContent(remoteViews);
-			mBuilder.setContentIntent(contentIntent);
 		}
 
 		String msgcnt = extras.getString("msgcnt");
@@ -157,6 +153,11 @@ public class GCMIntentService extends GCMBaseIntentService {
 		}
 		catch(Exception e) {
 			Log.e(TAG, "Number format exception - Error parsing Notification ID" + e.getMessage());
+		}
+		
+		if (notId == 0) {
+			// no notId passed, so assume we want to show all notifications, so make it a random number
+			notId = new Random().nextInt(100000);
 		}
 		
 		mNotificationManager.notify((String) appName, notId, mBuilder.build());
