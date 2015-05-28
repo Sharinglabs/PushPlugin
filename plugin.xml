@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:amazon="http://schemas.android.com/apk/lib/com.amazon.device.ads"
     id="com.sharinglabs.cordova.plugin.PushPlugin.WiizbabyProd"
-    version="2.3.6">
+    version="2.6.0">
 
   <name>PushPlugin</name>
 	<author>Bob Easterday</author>
 
 	<description>
+		Based on the PGB version.
 		This plugin allows your application to receive push notifications on Android, iOS and WP8 devices.
     Android uses Google Cloud Messaging.
     iOS uses Apple APNS Notifications.
