@@ -4,7 +4,7 @@
     xmlns:amazon="http://schemas.android.com/apk/lib/com.amazon.device.ads"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     id="com.sharinglabs.cordova.plugin.PushPlugin"
-    version="2.6.0">
+    version="2.6.1">
 
 	<name>PushPlugin</name>
 	<author>Bob Easterday</author>
@@ -15,7 +15,7 @@
 		Android uses Google Cloud Messaging.
 		iOS uses Apple APNS Notifications.
 		WP8 uses Microsoft MPNS Notifications.
-    Windows8 uses Microsoft WNS Notifications.
+		Windows8 uses Microsoft WNS Notifications.
 	</description>
 
 	<license>MIT</license>
